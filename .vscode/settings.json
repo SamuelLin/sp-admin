@@ -1,0 +1,26 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": false,
+  "eslint.alwaysShowStatus": true,
+  "eslint.options": {
+    "extensions": [
+      ".html",
+      ".js",
+      ".vue"
+    ]
+  },
+  "eslint.validate": [
+    "html",
+    "vue",
+    "javascript"
+  ],
+  "files.eol": "\n",
+  "i18n-ally.localesPaths": [
+    "src/locales" // 設定語系檔放置於哪一個路徑
+  ],
+  "i18n-ally.sourceLanguage": "zh", // 預設語系為中文
+  "vetur.validation.template": false
+}
