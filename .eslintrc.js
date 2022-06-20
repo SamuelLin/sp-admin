@@ -19,6 +19,7 @@ module.exports = {
     'vue/no-multiple-template-root': 0,
     'vue/multi-word-component-names': 'off',
     'no-unused-vars': 'off',
+    'no-useless-escape': 0,
   },
   overrides: [
     {
