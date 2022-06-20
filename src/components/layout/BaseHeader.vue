@@ -19,7 +19,7 @@ async function handleClick() {
 <template>
   <div class="navbar">
     <Hamburger
-      :is-active="store.getters.sidebar.opened"
+      :is-active="!store.getters.sidebar.opened"
       class="hamburger-container"
       @toggle-click="toggleSideBar"
     />
