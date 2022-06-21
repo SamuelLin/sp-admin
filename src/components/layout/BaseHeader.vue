@@ -1,10 +1,12 @@
 <script setup>
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
+import { useI18n } from 'vue-i18n'
 
 const router = useRouter()
 const route = useRoute()
 const store = useStore()
+const { locale } = useI18n({ useScope: 'global' })
 
 function toggleSideBar() {
   store.dispatch('app/toggleSideBar')
@@ -13,6 +15,11 @@ function toggleSideBar() {
 async function handleClick() {
   await store.dispatch('user/logout')
   router.push(`/login?redirect=${route.fullPath}`)
+}
+
+function changeLocale(lang) {
+  locale.value = lang
+  store.dispatch('app/setLocale', lang)
 }
 </script>
 
@@ -26,6 +33,17 @@ async function handleClick() {
     <Breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
+      <el-dropdown class="right-menu-item hover-effect" trigger="click">
+        <div class="avatar-wrapper">
+          <p style="font-size: 14px; margin-top: 20px">{{ $t(store.getters.locale) }}</p>
+        </div>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item @click="() => changeLocale('en')">{{ $t('en') }}</el-dropdown-item>
+            <el-dropdown-item @click="() => changeLocale('zh')">{{ $t('zh') }}</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
           <p style="font-size: 14px; margin-top: 20px">Lebron</p>
@@ -35,8 +53,8 @@ async function handleClick() {
         </div>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>setting</el-dropdown-item>
-            <el-dropdown-item @click="handleClick">logout</el-dropdown-item>
+            <el-dropdown-item>{{ $t('setting') }}</el-dropdown-item>
+            <el-dropdown-item @click="handleClick">{{ $t('logout') }}</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
