@@ -64,7 +64,7 @@ function changeLocale(lang) {
 
 <style lang="scss" scoped>
 .navbar {
-  height: 60px;
+  height: 50px;
   overflow: hidden;
   position: relative;
   background: #fff;
