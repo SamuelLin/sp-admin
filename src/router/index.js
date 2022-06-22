@@ -54,10 +54,17 @@ export const constantRoutes = [
         path: 'home',
         component: () => import('@/views/home.vue'),
         name: 'Home',
-        meta: { title: 'Home', icon: 'dashboard', affix: true }
+        meta: { title: 'Home', icon: 'House', affix: true }
       }
     ]
-  },
+  }
+]
+
+/**
+ * asyncRoutes
+ * the routes that need to be dynamically loaded based on user roles
+ */
+export const asyncRoutes = [
   {
     path: '/permission',
     component: Layout,
@@ -66,7 +73,7 @@ export const constantRoutes = [
     name: 'Permission',
     meta: {
       title: 'Permission',
-      icon: 'lock',
+      icon: 'Lock',
       roles: ['admin', 'editor'] // you can set roles in root nav
     },
     children: [
@@ -101,12 +108,6 @@ export const constantRoutes = [
   },
   { path: '/:pathMatch(.*)*', redirect: '/404', hidden: true }
 ]
-
-/**
- * asyncRoutes
- * the routes that need to be dynamically loaded based on user roles
- */
-export const asyncRoutes = []
 
 const router = createRouter({
   history: createWebHistory(),

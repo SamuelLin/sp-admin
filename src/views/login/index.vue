@@ -19,6 +19,7 @@ const sizeForm = reactive({
 })
 
 function handleClick() {
+  localStorage.setItem('Sp-Token', 1234)
   router.push('/home')
 }
 </script>

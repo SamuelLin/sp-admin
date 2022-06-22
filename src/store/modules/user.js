@@ -5,8 +5,6 @@ import router, { resetRouter } from '@/router'
 const state = {
   token: getToken(),
   name: '',
-  avatar: '',
-  introduction: '',
   roles: []
 }
 
@@ -14,14 +12,8 @@ const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
   },
-  SET_INTRODUCTION: (state, introduction) => {
-    state.introduction = introduction
-  },
   SET_NAME: (state, name) => {
     state.name = name
-  },
-  SET_AVATAR: (state, avatar) => {
-    state.avatar = avatar
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
@@ -49,30 +41,35 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token)
-        .then((response) => {
-          const { data } = response
+      const mockData = { name: 'Test', roles: ['admin'] }
 
-          if (!data) {
-            reject('Verification failed, please Login again.')
-          }
+      commit('SET_ROLES', mockData.roles)
+      commit('SET_NAME', mockData.name)
 
-          const { roles, name, avatar, introduction } = data
+      resolve(mockData)
 
-          // roles must be a non-empty array
-          if (!roles || roles.length <= 0) {
-            reject('getInfo: roles must be a non-null array!')
-          }
+      // getInfo(state.token)
+      //   .then((response) => {
+      //     const { data } = response
 
-          commit('SET_ROLES', roles)
-          commit('SET_NAME', name)
-          commit('SET_AVATAR', avatar)
-          commit('SET_INTRODUCTION', introduction)
-          resolve(data)
-        })
-        .catch((error) => {
-          reject(error)
-        })
+      //     if (!data) {
+      //       reject('Verification failed, please Login again.')
+      //     }
+
+      //     const { roles, name } = data
+
+      //     // roles must be a non-empty array
+      //     if (!roles || roles.length <= 0) {
+      //       reject('getInfo: roles must be a non-null array!')
+      //     }
+
+      //     commit('SET_ROLES', roles)
+      //     commit('SET_NAME', name)
+      //     resolve(data)
+      //   })
+      //   .catch((error) => {
+      //     reject(error)
+      //   })
     })
   },
 

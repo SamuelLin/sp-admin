@@ -15,31 +15,29 @@ router.beforeEach(async (to, from, next) => {
       next({ path: '/' })
     } else {
       // determine whether the user has obtained his permission roles through getInfo
-      // TODO: uncommit when has roles
-      // const hasRoles = store.getters.roles && store.getters.roles.length > 0
-      const hasRoles = true
+      const hasRoles = store.getters.roles && store.getters.roles.length > 0
 
       if (hasRoles) {
-        // TODO: 實作完權限之後刪掉
-        await store.dispatch('permission/generateRoutes', [])
-
         next()
       } else {
         try {
           // get user info
           // note: roles must be a object array! such as: ['admin'] or ,['developer','editor']
-          const { roles = [] } = await store.dispatch('user/getInfo')
-
-          // TODO: generateRoutes實作
-          // // generate accessible routes map based on roles
+          const { roles } = await store.dispatch('user/getInfo')
+          // generate accessible routes map based on roles
           const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
-          // // dynamically add accessible routes
-          // router.addRoutes(accessRoutes)
+
+          // dynamically add accessible routes
+          for (const route of accessRoutes) {
+            router.addRoute(route)
+          }
+          //router.addRoutes(accessRoutes)
 
           // hack method to ensure that addRoutes is complete
           // set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })
         } catch (error) {
+          console.log('error', error)
           // remove token and go to login page to re-login
           await store.dispatch('user/resetToken')
           next(`/login?redirect=${to.path}`)
