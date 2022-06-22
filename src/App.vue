@@ -1,10 +1,10 @@
 <script setup>
-// TODO: i18n
+import { useStore } from 'vuex'
 import en from 'element-plus/es/locale/lang/en'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
-import zhTw from 'element-plus/lib/locale/lang/zh-tw'
 
-const locale = zhTw
+const store = useStore()
+const locale = store.getters.locale === 'en' ? en : zhCn
 </script>
 
 <template>
